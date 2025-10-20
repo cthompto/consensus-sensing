@@ -26,8 +26,8 @@ function preload() {
     //overlayTwo[i] = loadImage("test-assets/t" + i + "2.png");
     //overlayThree[i] = loadImage("test-assets/t" + i + "3.png");
   }
-  dataImage = loadImage("assets/omni-screen-data.png");
-  infoImage = loadImage("assets/omni-screen-info.png");
+  dataImage = loadImage("assets/omni-screen-data-3.png");
+  infoImage = loadImage("assets/omni-screen-info-4.png");
   titleImage = loadImage("assets/omni-data-title.png");
 }
 
@@ -165,7 +165,7 @@ function mousePressed() {
           console.log(state);
         } else {
           printImg = canvas.get(width*0.0625,height*0.11,width*0.4375,width*0.4375);
-          printImg.save('consensus-print', 'png');
+          printImg.save('omni-output', 'png');
         }
       }
     }
