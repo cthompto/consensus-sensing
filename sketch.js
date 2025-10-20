@@ -6,13 +6,17 @@ let overlayTwo = [];
 let overlayThree = [];
 let imageIndex = 0;
 let layerIndex = 0;
-let state = "standard";
+let state = "title";
 let glitchAmount = 0;
+let dataImage;
+let infoImage;
+let titleImage;
 
-// states to use = "title", "standard", "info", "data"];
+//states to use = "title", "standard", "info", "data"];
 
-// filter testing
-let sampleFilter;
+//filter image
+let imageFilter;
+let screenFilter;
 
 function preload() {
   frameImage = loadImage("omni-data-test-2.png");
@@ -22,12 +26,16 @@ function preload() {
     //overlayTwo[i] = loadImage("test-assets/t" + i + "2.png");
     //overlayThree[i] = loadImage("test-assets/t" + i + "3.png");
   }
+  dataImage = loadImage("assets/omni-screen-data.png");
+  infoImage = loadImage("assets/omni-screen-info.png");
+  titleImage = loadImage("assets/omni-data-title.png");
 }
 
 function setup() {
   canvas = createCanvas(windowWidth, windowWidth*0.5625, WEBGL);
   rectMode(CENTER);
-  sampleFilter = createFilterShader(fip.glitch);
+  imageFilter = createFilterShader(fip.glitch);
+  screenFilter = createFilterShader(fip.solarize);
 
   glitchAmount = int(random(-30,30));
   glitchAmount = glitchAmount/10;
@@ -37,22 +45,18 @@ function setup() {
 function draw() {
   background(0);
 
+  //Main Image
   imageRender();
-  //Filter image portion
-  filter(sampleFilter);
   
-  //glitch settings
-  sampleFilter.setUniform('glitchIntensity', glitchAmount);
-  
-  //crt settings
-  //sampleFilter.setUniform('time', millis() * 0.0001);
+  //Machine Screens
+  machineScreens();
 
   //device frame
   image(frameImage, -width/2, -height/2, width, height);
 
   //title overlay
   if(state == "title") {
-
+    image(titleImage, -width/2, -height/2, width, height);
   }
 
 }
@@ -94,103 +98,170 @@ function imageRender() {
       width * 0.45
     );
   }
+
+  //Filter image portion
+  filter(imageFilter);
+  
+  //Filter settings
+  imageFilter.setUniform('glitchIntensity', glitchAmount);
+}
+
+function machineScreens() {
+  if(state == "data") {
+    image(
+    dataImage,
+    -width * 0.45,
+    -height * 0.4,
+    width * 0.45,
+    width * 0.45
+  );
+
+  } else if(state == "info") {
+    image(
+    infoImage,
+    -width * 0.45,
+    -height * 0.4,
+    width * 0.45,
+    width * 0.45
+  );
+  }
 }
 
 function mousePressed() {
-  //button row 1 - focus - / focus + / print
-  if (mouseY >= height * 0.055 && mouseY <= height * 0.11) {
 
-    //focus - 
-    if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
-      glitchAmount = glitchAmount-0.1;
-      console.log(glitchAmount);
+  if(state == "title") {
+    state = "standard";
+  } else {
+    //button row 1 - focus - / focus + / print
+    if (mouseY >= height * 0.055 && mouseY <= height * 0.11) {
+
+      //focus - 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          glitchAmount = glitchAmount-0.1;
+          console.log(glitchAmount);
+        }
+        
+      }
+
+      //focus +
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          glitchAmount = glitchAmount+0.1;
+          console.log(glitchAmount); 
+        }
+      }
+
+      //print
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          printImg = canvas.get(width*0.0625,height*0.11,width*0.4375,width*0.4375);
+          printImg.save('consensus-print', 'png');
+        }
+      }
     }
 
-    //focus +
-    if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
-      glitchAmount = glitchAmount+0.1;
-      console.log(glitchAmount);
+
+    //button row 2 - layer up
+    if (mouseY >= height * 0.22 && mouseY <= height * 0.33) {
+      //layer up
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          layerIndex++;
+          if (layerIndex >= baseImage.length - 1) {
+            layerIndex = baseImage.length - 1;
+          }
+          console.log(layerIndex);
+        }
+      }
     }
 
-    //print
-    if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
-      printImg = canvas.get(width*0.0625,height*0.11,width*0.4375,width*0.4375);
-      printImg.save('consensus-print', 'png');
-   }
+    //button row 3 - back and forward
+    if (mouseY >= height * 0.38 && mouseY <= height * 0.5) {
+      //forward
+      if (mouseX >= width * 0.84375 && mouseX <= width * 0.90625) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          imageIndex++;
+          if (imageIndex >= baseImage.length) {
+            imageIndex = 0;
+          }
+          layerIndex = 0;
+        }
+      }
+      
+      //back
+      if (mouseX >= width * 0.65625 && mouseX <= width * 0.71875) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          imageIndex--;
+          console.log("test");
+          if (imageIndex < 0) {
+            imageIndex = baseImage.length-1;
+          }
+          layerIndex = 0;
+        }
+      }
+    }
+
+    //button row 4 - layer down
+    if (mouseY >= height * 0.55 && mouseY <= height * 0.66) {
+      //layer down
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        if(state != "standard") {
+          state = "standard";
+          console.log(state);
+        } else {
+          layerIndex--;
+          if (layerIndex <= 0) {
+            layerIndex = 0;
+          }
+          console.log(layerIndex);
+        }
+      }
+    }
+
+    //button row 5 - info / data
+
+    if (mouseY >= height * 0.722 && mouseY <= height * 0.77) {
+
+      //data 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        if(state == "data") {
+          state ="standard"
+        } else {
+          state = "data";
+        }
+        console.log(state);
+      }
+
+      //info
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        if(state == "info") {
+          state ="standard"
+        } else {
+          state = "info";
+        }
+        console.log(state);
+    }
+    }
   }
-
-
-  //button row 2 - layer up
-  if (mouseY >= height * 0.22 && mouseY <= height * 0.33) {
-    //layer up
-    if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
-      layerIndex++;
-      if (layerIndex >= baseImage.length - 1) {
-        layerIndex = baseImage.length - 1;
-      }
-      console.log(layerIndex);
-    }
-  }
-
-  //button row 3 - back and forward
-  if (mouseY >= height * 0.38 && mouseY <= height * 0.5) {
-    //forward
-    if (mouseX >= width * 0.84375 && mouseX <= width * 0.90625) {
-      imageIndex++;
-      if (imageIndex >= baseImage.length) {
-        imageIndex = 0;
-      }
-      layerIndex = 0;
-    }
-    
-    //back
-    if (mouseX >= width * 0.65625 && mouseX <= width * 0.71875) {
-      imageIndex--;
-      console.log("test");
-      if (imageIndex < 0) {
-        imageIndex = baseImage.length-1;
-      }
-      layerIndex = 0;
-    }
-  }
-
-  //button row 4 - layer down
-  if (mouseY >= height * 0.55 && mouseY <= height * 0.66) {
-    //layer down
-    if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
-      layerIndex--;
-      if (layerIndex <= 0) {
-        layerIndex = 0;
-      }
-      console.log(layerIndex);
-    }
-  }
-
-  //button row 5 - info / data
-
-  if (mouseY >= height * 0.722 && mouseY <= height * 0.77) {
-
-    //data 
-    if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
-      if(state == "data") {
-        state ="standard"
-      } else {
-        state = "data";
-      }
-      console.log(state);
-    }
-
-    //info
-    if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
-      if(state == "info") {
-        state ="standard"
-      } else {
-        state = "info";
-      }
-      console.log(state);
-   }
-  }
-
 }
 
 
