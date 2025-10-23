@@ -29,6 +29,7 @@ let dataHover;
 let dataPress;
 let infoHover;
 let infoPress;
+let buttonSound;
 
 //states to use = "title", "standard", "info", "data"];
 
@@ -37,6 +38,11 @@ let imageFilter;
 let screenFilter;
 
 function preload() {
+  //sounds
+  soundFormats('mp3', 'ogg');
+  buttonSound = loadSound('assets/button');
+  buttonSound.setVolume(0.15);
+
   //frame image
   frameImage = loadImage("assets/frame/omni-frame.png");
   
@@ -368,16 +374,25 @@ function pressGraphics() {
     //focus -
     if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
       image(focminPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
 
     //focus +
     if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
       image(focmaxPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
 
     //print
     if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
       image(printPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
   }
 
@@ -386,6 +401,9 @@ function pressGraphics() {
     //layer up
     if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
       image(lupPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
   }
 
@@ -394,11 +412,17 @@ function pressGraphics() {
     //forward
     if (mouseX >= width * 0.84375 && mouseX <= width * 0.90625) {
       image(forwardPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
 
     //back
     if (mouseX >= width * 0.65625 && mouseX <= width * 0.71875) {
       image(backPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
   }
 
@@ -407,6 +431,9 @@ function pressGraphics() {
     //layer down
     if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
       image(ldownPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
   }
 
@@ -416,11 +443,17 @@ function pressGraphics() {
     //data
     if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
       image(dataPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
 
     //info
     if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
       image(infoPress, -width / 2, -height / 2, width, height);
+      if(!buttonSound.isPlaying()) {
+        buttonSound.play();
+      } 
     }
   }
 }

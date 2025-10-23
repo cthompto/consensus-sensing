@@ -5,6 +5,8 @@
         0a.png
     platform:
         dalle-2
+    notes:
+
 
 - image 1
     old name:

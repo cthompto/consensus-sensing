@@ -1,8 +1,8 @@
 - [x] Random starting image
 - [x] button images (hover and press)
 - [x] plastic texture on frame
-- [ ] revise starting splash
-- [ ] sound effects
-- [ ] bg sound
+- [x] revise starting splash
+- [x] sound effects
 - [ ] second overlay (all images)
+- [ ] bg sound
 - [ ] second info page
