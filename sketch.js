@@ -11,6 +11,24 @@ let glitchAmount = 0;
 let dataImage;
 let infoImage;
 let titleImage;
+let printHover;
+let printPress;
+let focminHover;
+let focminPress;
+let focmaxHover;
+let focmaxPress;
+let lupHover;
+let lupPress;
+let ldownHover;
+let ldownPress;
+let forwardHover;
+let forwardPress;
+let backHover;
+let backPress;
+let dataHover;
+let dataPress;
+let infoHover;
+let infoPress;
 
 //states to use = "title", "standard", "info", "data"];
 
@@ -19,7 +37,27 @@ let imageFilter;
 let screenFilter;
 
 function preload() {
-  frameImage = loadImage("omni-data-test-2.png");
+  frameImage = loadImage("assets/frame/omni-frame.png");
+  printHover = loadImage("assets/frame/print-hover.png");
+  focminHover = loadImage("assets/frame/focmin-hover.png");
+  focmaxHover = loadImage("assets/frame/focmax-hover.png");
+  lupHover = loadImage("assets/frame/lup-hover.png");
+  ldownHover = loadImage("assets/frame/ldown-hover.png");
+  backHover = loadImage("assets/frame/back-hover.png");
+  forwardHover = loadImage("assets/frame/forward-hover.png");
+  dataHover = loadImage("assets/frame/data-hover.png");
+  infoHover = loadImage("assets/frame/info-hover.png");
+
+  printPress = loadImage("assets/frame/print-press.png");
+  focminPress = loadImage("assets/frame/focmin-press.png");
+  focmaxPress = loadImage("assets/frame/focmax-press.png");
+  lupPress = loadImage("assets/frame/lup-press.png");
+  ldownPress = loadImage("assets/frame/ldown-press.png");
+  backPress = loadImage("assets/frame/back-press.png");
+  forwardPress = loadImage("assets/frame/forward-press.png");
+  dataPress = loadImage("assets/frame/data-press.png");
+  infoPress = loadImage("assets/frame/info-press.png");
+
   for (let i = 0; i < 15; i++) {
     baseImage[i] = loadImage("assets/" + i + "a.png");
     overlayOne[i] = loadImage("assets/" + i + "b.png");
@@ -40,6 +78,7 @@ function setup() {
   glitchAmount = int(random(-30,30));
   glitchAmount = glitchAmount/10;
   console.log(glitchAmount);
+  imageIndex = int(random(baseImage.length));
 }
 
 function draw() {
@@ -57,6 +96,12 @@ function draw() {
   //title overlay
   if(state == "title") {
     image(titleImage, -width/2, -height/2, width, height);
+  } else {
+    hoverGraphics();
+  }
+
+  if(mouseIsPressed) {
+    pressGraphics();
   }
 
 }
@@ -264,6 +309,136 @@ function mousePressed() {
   }
 }
 
+function hoverGraphics() {
+  if (mouseY >= height * 0.055 && mouseY <= height * 0.11) {
+
+      //focus - 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        image(focminHover, -width/2, -height/2, width, height);
+      }
+
+      //focus +
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(focmaxHover, -width/2, -height/2, width, height);
+      }
+
+      //print
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        image(printHover, -width/2, -height/2, width, height);
+      }
+    }
+
+
+    //button row 2 - layer up
+    if (mouseY >= height * 0.22 && mouseY <= height * 0.33) {
+      //layer up
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(lupHover, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 3 - back and forward
+    if (mouseY >= height * 0.38 && mouseY <= height * 0.5) {
+      //forward
+      if (mouseX >= width * 0.84375 && mouseX <= width * 0.90625) {
+        image(forwardHover, -width/2, -height/2, width, height);
+      }
+      
+      //back
+      if (mouseX >= width * 0.65625 && mouseX <= width * 0.71875) {
+        image(backHover, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 4 - layer down
+    if (mouseY >= height * 0.55 && mouseY <= height * 0.66) {
+      //layer down
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(ldownHover, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 5 - info / data
+
+    if (mouseY >= height * 0.722 && mouseY <= height * 0.77) {
+
+      //data 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        image(dataHover, -width/2, -height/2, width, height);
+      }
+
+      //info
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        image(infoHover, -width/2, -height/2, width, height);
+      }
+    }
+  
+}
+
+function pressGraphics() {
+  if (mouseY >= height * 0.055 && mouseY <= height * 0.11) {
+
+      //focus - 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        image(focminPress, -width/2, -height/2, width, height);
+      }
+
+      //focus +
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(focmaxPress, -width/2, -height/2, width, height);
+      }
+
+      //print
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        image(printPress, -width/2, -height/2, width, height);
+      }
+    }
+
+
+    //button row 2 - layer up
+    if (mouseY >= height * 0.22 && mouseY <= height * 0.33) {
+      //layer up
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(lupPress, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 3 - back and forward
+    if (mouseY >= height * 0.38 && mouseY <= height * 0.5) {
+      //forward
+      if (mouseX >= width * 0.84375 && mouseX <= width * 0.90625) {
+        image(forwardPress, -width/2, -height/2, width, height);
+      }
+      
+      //back
+      if (mouseX >= width * 0.65625 && mouseX <= width * 0.71875) {
+        image(backPress, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 4 - layer down
+    if (mouseY >= height * 0.55 && mouseY <= height * 0.66) {
+      //layer down
+      if (mouseX >= width * 0.75 && mouseX <= width * 0.8125) {
+        image(ldownPress, -width/2, -height/2, width, height);
+      }
+    }
+
+    //button row 5 - info / data
+
+    if (mouseY >= height * 0.722 && mouseY <= height * 0.77) {
+
+      //data 
+      if (mouseX >= width * 0.625 && mouseX <= width * 0.6875) {
+        image(dataPress, -width/2, -height/2, width, height);
+      }
+
+      //info
+      if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
+        image(infoPress, -width/2, -height/2, width, height);
+      }
+    }
+}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowWidth*0.5625);
