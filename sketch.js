@@ -83,6 +83,7 @@ function preload() {
 function setup() {
   canvas = createCanvas(windowWidth, windowWidth * 0.5625, WEBGL);
   rectMode(CENTER);
+  frameRate(30);
   imageFilter = createFilterShader(fip.glitch);
   screenFilter = createFilterShader(fip.solarize);
 
