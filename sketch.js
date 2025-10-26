@@ -460,5 +460,5 @@ function pressGraphics() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowWidth * 0.5625);
+  resizeCanvas(windowWidth*0.9, (windowWidth * 0.5625)*0.9);
 }
