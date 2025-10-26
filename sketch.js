@@ -81,7 +81,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(windowWidth*0.9, (windowWidth * 0.5625)*0.9, WEBGL);
+  canvas = createCanvas(windowWidth*0.8, (windowWidth * 0.5625)*0.8, WEBGL);
   rectMode(CENTER);
   frameRate(30);
   imageFilter = createFilterShader(fip.glitch);
@@ -460,5 +460,5 @@ function pressGraphics() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth*0.9, (windowWidth * 0.5625)*0.9);
+  resizeCanvas(windowWidth*0.8, (windowWidth * 0.5625)*0.8);
 }
