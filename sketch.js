@@ -9,7 +9,8 @@ let layerIndex = 0;
 let state = "title";
 let glitchAmount = 0;
 let dataImage;
-let infoImage;
+let infoImage= [];
+let infoIndex = 0;
 let titleImage;
 let printHover;
 let printPress;
@@ -75,8 +76,9 @@ function preload() {
     //overlayTwo[i] = loadImage("test-assets/t" + i + "2.png");
     //overlayThree[i] = loadImage("test-assets/t" + i + "3.png");
   }
-  dataImage = loadImage("assets/omni-screen-data-3.png");
-  infoImage = loadImage("assets/omni-screen-info-4.png");
+  dataImage = loadImage("assets/d-s.png");
+  infoImage[0] = loadImage("assets/m-i-1.png");
+  infoImage[1] = loadImage("assets/m-i-2.png");
   titleImage = loadImage("assets/omni-data-title-sm-txt.png");
 }
 
@@ -167,13 +169,18 @@ function machineScreens() {
   if (state == "data") {
     image(dataImage, -width * 0.45, -height * 0.4, width * 0.45, width * 0.45);
   } else if (state == "info") {
-    image(infoImage, -width * 0.45, -height * 0.4, width * 0.45, width * 0.45);
+    if(infoIndex == 0) {
+      image(infoImage[0], -width * 0.45, -height * 0.4, width * 0.45, width * 0.45);
+    } else if(infoIndex == 1) {
+      image(infoImage[1], -width * 0.45, -height * 0.4, width * 0.45, width * 0.45);
+    }
+    
   }
 }
 
 function mousePressed() {
   if (state == "title") {
-    state = "standard";
+    state = "info";
   } else {
     //button row 1 - focus - / focus + / print
     if (mouseY >= height * 0.055 && mouseY <= height * 0.11) {
@@ -298,9 +305,14 @@ function mousePressed() {
       //info
       if (mouseX >= width * 0.875 && mouseX <= width * 0.9375) {
         if (state == "info") {
-          state = "standard";
+          if(infoIndex == 0) {
+            infoIndex = 1;
+          } else if (infoIndex == 1) {
+            state = "standard";
+          }
         } else {
           state = "info";
+          infoIndex = 0;
         }
         console.log(state);
       }
