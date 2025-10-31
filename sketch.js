@@ -73,9 +73,10 @@ function preload() {
   for (let i = 0; i < 15; i++) {
     baseImage[i] = loadImage("assets/" + i + "a.png");
     overlayOne[i] = loadImage("assets/" + i + "b.png");
-    //overlayTwo[i] = loadImage("test-assets/t" + i + "2.png");
+    overlayTwo[i] = loadImage("assets/" + i + "c.png");
     //overlayThree[i] = loadImage("test-assets/t" + i + "3.png");
   }
+  //overlayTwo[0] = loadImage("assets/0c.png");
   dataImage = loadImage("assets/d-s.png");
   infoImage[0] = loadImage("assets/m-i-1.png");
   infoImage[1] = loadImage("assets/m-i-2.png");
@@ -140,22 +141,23 @@ function imageRender() {
     );
   } else if (layerIndex == 2) {
     //remove for more layers and uncomment image
-    layerIndex = 1;
-    // image(
-    //   overlayTwo[imageIndex],
-    //   -width * 0.45,
-    //   -height * 0.4,
-    //   width * 0.45,
-    //   width * 0.45
-    // );
-  } else if (layerIndex == 3) {
+    //layerIndex = 1;
     image(
-      overlayThree[imageIndex],
+      overlayTwo[imageIndex],
       -width * 0.45,
       -height * 0.4,
       width * 0.45,
       width * 0.45
     );
+  } else if (layerIndex == 3) {
+    layerIndex = 2;
+    // image(
+    //   overlayThree[imageIndex],
+    //   -width * 0.45,
+    //   -height * 0.4,
+    //   width * 0.45,
+    //   width * 0.45
+    // );
   }
 
   //Filter image portion
@@ -252,7 +254,7 @@ function mousePressed() {
           if (imageIndex >= baseImage.length) {
             imageIndex = 0;
           }
-          layerIndex = 0;
+          //layerIndex = 0;
         }
       }
 
@@ -267,7 +269,7 @@ function mousePressed() {
           if (imageIndex < 0) {
             imageIndex = baseImage.length - 1;
           }
-          layerIndex = 0;
+          //layerIndex = 0;
         }
       }
     }
